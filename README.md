@@ -288,16 +288,6 @@ O projeto foi recebido com uma série de falhas propositais de infraestrutura. A
 
 ---
 
-## 👥 Equipe
-
-| Nome | Função |
-|------|--------|
-|      |        |
-|      |        |
-|      |        |
-
----
-
 ## 📄 Licença
 
 Distribuído sob a licença MIT. Veja o arquivo [`LICENSE`](./LICENSE) para mais detalhes.
