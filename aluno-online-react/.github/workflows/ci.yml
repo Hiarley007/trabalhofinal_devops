@@ -23,10 +23,20 @@ jobs:
           cd aluno-online-react/backend
           npm install
 
+      - name: Testar Backend
+        run: |
+          cd aluno-online-react/backend
+          npm test
+
       - name: Instalar Frontend
         run: |
           cd aluno-online-react/frontend
           npm install
+
+      - name: Testar Frontend
+        run: |
+          cd aluno-online-react/frontend
+          npm test
 
       - name: Build Frontend
         run: |
