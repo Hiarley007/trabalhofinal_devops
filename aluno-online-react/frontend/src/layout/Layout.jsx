@@ -1,16 +1,18 @@
-import React from "react"
 import { Outlet } from "react-router";
+import Menu from "../components/Menu"
 import Sidebar from "../components/Sidebar";
 
 function Layout () {
     return (
-        <div className="flex min-h-screen">
+        <>
+    
             <Sidebar />
-            <main className="flex-1">
-                <Outlet/>
-            </main>
-        </div>
+        
+    
+            <Outlet/>
+       
+        </>
     )
 }
 
-export default Layout;
+export default Layout; 
