@@ -1,0 +1,64 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Instalar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Instalar Backend
+        run: |
+          cd aluno-online-react/backend
+          npm install
+
+      - name: Testar Backend
+        run: |
+          cd aluno-online-react/backend
+          npm test
+
+      - name: Instalar Frontend
+        run: |
+          cd aluno-online-react/frontend
+          npm install
+
+      - name: Testar Frontend
+        run: |
+          cd aluno-online-react/frontend
+          npm test
+
+      - name: Build Frontend
+        run: |
+          cd aluno-online-react/frontend
+          npm run build
+
+      - name: Login Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build e Push Backend
+        uses: docker/build-push-action@v5
+        with:
+          context: ./aluno-online-react/backend
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/aluno-online-backend:latest
+
+      - name: Build e Push Frontend
+        uses: docker/build-push-action@v5
+        with:
+          context: ./aluno-online-react/frontend
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/aluno-online-frontend:latest
