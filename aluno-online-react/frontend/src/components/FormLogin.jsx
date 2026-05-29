@@ -1,30 +1,28 @@
-import { useState } from "react";
-import { useNavigate } from "react-router"; 
+import React, { useState } from "react";
+import { useNavigate } from "react-router";
 import InputMatricula from "./InputMatricula";
 import InputSenha from "./InputSenha";
 import InputSubmit from "./InputSubmit";
 import useAuth from "../hooks/useAuth";
 
-
 function FormLogin() {
-  const { login } = useAuth();
+  const { login, erro } = useAuth();
   const navigate = useNavigate();
 
-  const [matricula, setMatricula] = useState();
-  const [senha, setSenha] = useState();
-  const [matriculaErro, setMatriculaErro] = useState();
-  const [senhaErro, setSenhaErro] = useState();
+  const [matricula, setMatricula] = useState("");
+  const [senha, setSenha] = useState("");
+  const [emailErro, setMatriculaErro] = useState("");
+  const [senhaErro, setSenhaErro] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     let validacao = true;
-
     setMatriculaErro("");
     setSenhaErro("");
 
     if (!matricula) {
-      setMatriculaErro("Matrícula é obrigatória");
+      setMatriculaErro("Email é obrigatório");
       validacao = false;
     }
 
@@ -37,16 +35,19 @@ function FormLogin() {
     }
 
     if (validacao) {
-      login({ username: matricula, password: senha }); // usa os valores do form
-      navigate("/"); // redireciona após login
+      const ok = await login(matricula, senha);
+      if (ok) navigate("/");
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col md:w-100">
+    <form onSubmit={handleSubmit} className="flex flex-col md:w-96">
+      {erro && (
+        <p className="text-red-500 text-sm mb-2 text-center">{erro}</p>
+      )}
       <InputMatricula
         matricula={matricula}
-        erro={matriculaErro}
+        erro={emailErro}
         mudaValor={(e) => setMatricula(e.target.value)}
       />
       <InputSenha
