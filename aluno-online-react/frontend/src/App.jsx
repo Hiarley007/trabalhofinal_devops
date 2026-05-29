@@ -12,6 +12,7 @@ import RequerimentoForm from "./forms/RequerimentoForm"
 
 function App() {
   const { logado } = useAuth();
+
   return (
     <Routes>
       {logado ? (
@@ -22,14 +23,11 @@ function App() {
           <Route path="boletos" element={<Boletos />} />
           <Route path="requerimentos" element={<Requerimentos />} />
           <Route path="novo" element={<RequerimentoForm />} />
-          <Route path="*" element={<Erro404 />} />
-        </Route>
+          </Route>
       ) : (
-        <>
-          <Route path="/login" element={<Login />} />
-          <Route path="*" element={<Navigate to="/login" />} />
-        </>
+        <Route path="/login" element={<Login />} />
       )}
+      <Route path="*" element={<Erro404 />} />
     </Routes>
   );
 }
