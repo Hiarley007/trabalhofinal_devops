@@ -129,7 +129,11 @@ INSERT INTO usuarios (nome, email, senha_hash, perfil) VALUES
 ON CONFLICT DO NOTHING;
 
 -- Alunos
+<<<<<<< HEAD
+INSERT INTO usuarios (nome, email, senha_hash, perfil) VALUES
+=======
 INSERT INTO usuarios (nome, matricula, senha_hash, perfil) VALUES
+>>>>>>> feature/integration
   ('João Silva',    'joao@escola.com',   '$2b$10$ExemploHashAluno1234567890ab', 'aluno'),
   ('Maria Souza',   'maria@escola.com',  '$2b$10$ExemploHashAluno1234567890cd', 'aluno'),
   ('Carlos Mendes', 'carlos@escola.com', '$2b$10$ExemploHashAluno1234567890ef', 'aluno')
