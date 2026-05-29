@@ -1,3 +1,4 @@
+import React from "react"
 function Erro404() {
   return (
     <>

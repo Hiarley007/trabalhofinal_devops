@@ -3,6 +3,7 @@ import Card from "../components/Card";
 import Main from "../components/Main";
 import Sidebar from "../components/Sidebar";
 import { AuthContext } from "../context/AuthContext";
+import React from "react"
 
 function Dashboard() {
   const { usuario } = useContext(AuthContext);

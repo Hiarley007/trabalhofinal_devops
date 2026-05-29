@@ -1,3 +1,4 @@
+import React from "react"
 import { Routes, Route, Navigate } from "react-router";
 import Dashboard from "./pages/Dashboard";
 import Faltas from "./pages/Faltas";
@@ -12,7 +13,6 @@ import RequerimentoForm from "./forms/RequerimentoForm"
 
 function App() {
   const { logado } = useAuth();
-
   return (
     <Routes>
       {logado ? (
@@ -23,11 +23,14 @@ function App() {
           <Route path="boletos" element={<Boletos />} />
           <Route path="requerimentos" element={<Requerimentos />} />
           <Route path="novo" element={<RequerimentoForm />} />
-          </Route>
+          <Route path="*" element={<Erro404 />} />
+        </Route>
       ) : (
-        <Route path="/login" element={<Login />} />
+        <>
+          <Route path="/login" element={<Login />} />
+          <Route path="*" element={<Navigate to="/login" />} />
+        </>
       )}
-      <Route path="*" element={<Erro404 />} />
     </Routes>
   );
 }

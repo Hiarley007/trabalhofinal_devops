@@ -2,6 +2,7 @@ import Main from "../components/Main";
 import Sidebar from "../components/Sidebar";
 import Tabela from "../components/Tabela";
 import Topbar from "../components/Topbar";
+import React from "react"
 
 function Faltas() {
   const colunas = ["Disciplinas", "Total de Faltas", "% de Presença"];

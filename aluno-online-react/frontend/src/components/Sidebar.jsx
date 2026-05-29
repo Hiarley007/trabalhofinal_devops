@@ -1,5 +1,6 @@
 import logo from "../assets/learn.svg";
 import Menu from "./Menu";
+import React from "react"
 
 function Sidebar() {
   return (

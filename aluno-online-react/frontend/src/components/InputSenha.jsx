@@ -1,3 +1,4 @@
+import React from "react"
 function InputSenha({ senha, erro, mudaValor }) {
   return (
     <>

@@ -1,6 +1,7 @@
 import Main from "../components/Main";
 import Sidebar from "../components/Sidebar";
 import Tabela from "../components/Tabela";
+import React from "react"
 
 function Boletos() { 
   const colunas = ["Data", "Valor R$", "Situação"];
