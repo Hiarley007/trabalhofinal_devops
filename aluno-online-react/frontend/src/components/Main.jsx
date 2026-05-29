@@ -4,7 +4,7 @@ import Topbar from "./Topbar";
 function Main(props) {
   return (
     <>
-      <main className="flex-1">
+      <main className="flex-1 overflow-y-auto">
         <Topbar titulo={props.titulo} />
 
         <h2 className="text-lg font-semibold px-8 md:px-10 p-8">
