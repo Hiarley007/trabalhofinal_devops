@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Instalar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Instalar Backend
+        run: |
+          cd aluno-online-react/backend
+          npm install
+
+      - name: Instalar Frontend
+        run: |
+          cd aluno-online-react/frontend
+          npm install
+
+      - name: Build Frontend
+        run: |
+          cd aluno-online-react/frontend
+          npm run build
