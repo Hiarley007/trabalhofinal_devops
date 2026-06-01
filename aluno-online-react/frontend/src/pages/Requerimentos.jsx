@@ -2,6 +2,7 @@ import { Outlet, useNavigate } from "react-router";
 import Main from "../components/Main";
 import Sidebar from "../components/Sidebar";
 import Tabela from "../components/Tabela";
+import React from "react"
 
 function Requerimentos() {
   const colunas = ["Tipo de Requerimento", "Data de Solicitação", "Situação"];
