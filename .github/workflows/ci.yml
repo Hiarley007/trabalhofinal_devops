@@ -87,6 +87,6 @@ jobs:
       # ==========================
       - name: Validar sucesso da pipeline
         run: |
-          echo "Testes executados com sucesso"
+          echo "Testes executados com sucesso" 
           echo "Build realizado com sucesso"
           echo "Imagens publicadas no Docker Hub"
