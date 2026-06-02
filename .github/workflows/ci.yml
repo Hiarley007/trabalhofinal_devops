@@ -82,7 +82,7 @@ jobs:
       # ==========================
       # Deploy Simulado
       # ==========================
-      - name: Validar sucesso da pipeline
+      - name: Validar sucesso da pipeline 
         run: |
           echo "Testes executados com sucesso"
           echo "Build realizado com sucesso"
