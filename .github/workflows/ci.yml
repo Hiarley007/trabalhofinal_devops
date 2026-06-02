@@ -1,14 +1,15 @@
-
 name: CI/CD
 
 on:
   push:
-    branches: 
+    branches:
       - main
- 
+
   pull_request:
     branches:
       - main
+
+  workflow_dispatch:
 
 jobs:
   test-build-and-publish:
@@ -27,26 +28,26 @@ jobs:
       # Backend
       # ==========================
       - name: Instalar dependências Backend
-        working-directory: backend
+        working-directory: aluno-online-react/backend
         run: npm ci
 
       - name: Gerar Prisma Client
-        working-directory: backend
+        working-directory: aluno-online-react/backend
         run: npx prisma generate
 
       - name: Executar testes Backend
-        working-directory: backend
+        working-directory: aluno-online-react/backend
         run: npm test
 
       # ==========================
       # Frontend
       # ==========================
       - name: Instalar dependências Frontend
-        working-directory: frontend
+        working-directory: aluno-online-react/frontend
         run: npm ci
 
       - name: Build Frontend
-        working-directory: frontend
+        working-directory: aluno-online-react/frontend
         run: npm run build
 
       # ==========================
@@ -62,7 +63,7 @@ jobs:
       - name: Build e Push Backend
         uses: docker/build-push-action@v5
         with:
-          context: ./backend
+          context: ./aluno-online-react/backend
           push: true
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/aluno-online-backend:latest
@@ -72,7 +73,7 @@ jobs:
       - name: Build e Push Frontend
         uses: docker/build-push-action@v5
         with:
-          context: ./frontend
+          context: ./aluno-online-react/frontend
           push: true
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/aluno-online-frontend:latest
@@ -86,4 +87,3 @@ jobs:
           echo "Testes executados com sucesso"
           echo "Build realizado com sucesso"
           echo "Imagens publicadas no Docker Hub"
-
