@@ -4,45 +4,46 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  build:
+  test-and-build:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Instalar Node
+      - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Instalar Backend
-        run: |
-          cd aluno-online-react/backend
-          npm install
+      # Backend
+      - name: Instalar dependências Backend
+        working-directory: backend
+        run: npm install
 
-      - name: Testar Backend
-        run: |
-          cd aluno-online-react/backend
-          npm test
+      - name: Gerar Prisma Client
+        working-directory: backend
+        run: npx prisma generate
 
-      - name: Instalar Frontend
-        run: |
-          cd aluno-online-react/frontend
-          npm install
+      - name: Executar testes Backend
+        working-directory: backend
+        run: npm test
 
-      - name: Testar Frontend
-        run: |
-          cd aluno-online-react/frontend
-          npm test
+      # Frontend
+      - name: Instalar dependências Frontend
+        working-directory: frontend
+        run: npm install
 
       - name: Build Frontend
-        run: |
-          cd aluno-online-react/frontend
-          npm run build
+        working-directory: frontend
+        run: npm run build
 
+      # Docker Hub
       - name: Login Docker Hub
         uses: docker/login-action@v3
         with:
@@ -52,13 +53,13 @@ jobs:
       - name: Build e Push Backend
         uses: docker/build-push-action@v5
         with:
-          context: ./aluno-online-react/backend
+          context: ./backend
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/aluno-online-backend:latest
 
       - name: Build e Push Frontend
         uses: docker/build-push-action@v5
         with:
-          context: ./aluno-online-react/frontend
+          context: ./frontend
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/aluno-online-frontend:latest

@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const bcrypt = require("bcrypt");
 const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
@@ -40,7 +41,8 @@ app.post("/api/auth/login", async (req, res) => {
       });
     }
 
-    if (usuario.senha !== senha) {
+    const senhaValida = await bcrypt.compare(senha, usuario.senha);
+    if (!senhaValida) {
       return res.status(401).json({
         erro: "Senha inválida",
       });
