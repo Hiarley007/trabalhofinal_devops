@@ -1,6 +1,5 @@
 <div align="center">
 
-<img src="./aluno-online-react/frontend/src/assets/aluno_online_readme_header.svg" alt="descrição" width="600" />
 
 **Trabalho Final — Manutenção de Software e DevOps**
 
