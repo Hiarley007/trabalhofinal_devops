@@ -1,4 +1,3 @@
-import { useContext } from "react";
 import Card from "../components/Card";
 import Main from "../components/Main";
 import Sidebar from "../components/Sidebar";
@@ -6,7 +5,6 @@ import { AuthContext } from "../context/AuthContext";
 import React from "react"
 
 function Dashboard() {
-  const { usuario } = useContext(AuthContext);
 
   const avisos = [
     "Eleição para representante de Turma",
@@ -29,7 +27,7 @@ function Dashboard() {
   return (
     <>
       <Main
-        titulo={`Olá, ${usuario.nome}!`}
+        titulo={`Olá, Aluno!`}
         subtitulo="Bem-vindo ao Portal do Aluno"
       >
         <section className="grid grid-cols-1 md:grid-cols-2 gap-4 md:p-8">
