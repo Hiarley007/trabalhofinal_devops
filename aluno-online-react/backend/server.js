@@ -1,17 +1,17 @@
 const express = require("express");
 const cors = require("cors");
+const bcrypt = require("bcrypt");
 const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
-
 const app = express();
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 app.use(cors());
 app.use(express.json());
 
-// Healthcheck
+// Health Check
 app.get("/health", (req, res) => {
   res.status(200).json({
     status: "ok",
@@ -41,7 +41,8 @@ app.post("/api/auth/login", async (req, res) => {
       });
     }
 
-    if (usuario.senha !== senha) {
+    const senhaValida = await bcrypt.compare(senha, usuario.senha);
+    if (!senhaValida) {
       return res.status(401).json({
         erro: "Senha inválida",
       });
@@ -55,7 +56,6 @@ app.post("/api/auth/login", async (req, res) => {
         matricula: usuario.matricula,
       },
     });
-
   } catch (err) {
     console.error(err);
 
@@ -65,6 +65,12 @@ app.post("/api/auth/login", async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Servidor rodando em http://localhost:${PORT}`);
-});
+// Inicia o servidor apenas fora dos testes
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Servidor rodando em http://localhost:${PORT}`);
+  });
+}
+
+// Exporta o app para o Jest/Supertest
+module.exports = app;
